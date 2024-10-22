@@ -13,9 +13,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import SaveIcon from '@mui/icons-material/Save';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useSelector } from 'react-redux';
+import { PATH } from '../hook/usePath';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -63,6 +65,7 @@ export default function Appbar() {
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    const navigate = useNavigate()
 
 
 
@@ -138,6 +141,9 @@ export default function Appbar() {
         </Menu>
     );
 
+    const likedList = useSelector(state => state.card.likedList)
+    const savedList = useSelector(state => state.card.savedList)
+
     return (
         <Box sx={{ flexGrow: 1 }} className='!sticky !top-0 !z-50' >
             <AppBar position='static' >
@@ -178,8 +184,8 @@ export default function Appbar() {
                                 className='!h-[50px]'
                             />
                         </Search>
-                        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={4} color="error">
+                        <IconButton onClick={() => navigate(`${PATH.saved}`)} size="large" aria-label="show 4 new mails" color="inherit">
+                            <Badge badgeContent={savedList.length} color="error">
                                 <SaveIcon />
                             </Badge>
                         </IconButton>
@@ -187,8 +193,9 @@ export default function Appbar() {
                             size="large"
                             aria-label="show 17 new notifications"
                             color="inherit"
+                            onClick={() => navigate(`${PATH.liked}`)}
                         >
-                            <Badge badgeContent={17} color="error">
+                            <Badge badgeContent={likedList.length} color="error">
                                 <FavoriteIcon />
                             </Badge>
                         </IconButton>

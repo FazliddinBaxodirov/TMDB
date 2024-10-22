@@ -1,8 +1,7 @@
-import { patch } from '@mui/material'
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { PATH } from '../hook/usePath'
-import { NowPlaying, Popular, TopRated, UpComing } from '../pages'
+import { LikePage, NowPlaying, Popular, SavePage, TopRated, UpComing } from '../pages'
 
 export default function CustomRoute() {
 
@@ -18,14 +17,24 @@ export default function CustomRoute() {
             path:PATH.popular
         },
         {
-            id:1,
+            id:3,
             element:<TopRated/>,
             path:PATH.topRated
         },
         {
-            id:1,
+            id:4,
             element:<UpComing/>,
             path:PATH.upComing
+        },
+        {
+            id:5,
+            element:<LikePage/>,
+            path:PATH.liked
+        },
+        {
+            id:6,
+            element:<SavePage/>,
+            path:PATH.saved
         },
     ]
   return (
